@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premio Virtual</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Felicidades Kei</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Video de fondo -->
   <video id="bg-video" autoplay muted loop playsinline>
-    <source src="background.mp4" type="video/mp4">
+    <source src="background.mp4" type="video/mp4" />
+    Tu navegador no soporta video.
   </video>
 
-  <!-- Lienzo para partículas -->
-  <canvas id="particles"></canvas>
+  <!-- Canvas para partículas (si quieres efectos adicionales luego) -->
+  <canvas id="bg-canvas"></canvas>
 
-  <!-- Letras flotantes por toda la pantalla -->
-  <div id="lyrics-container"></div>
+  <!-- Letras flotantes -->
+  <div id="floating-lyrics"></div>
 
-  <!-- Frase romántica en esquina inferior -->
-  <div id="footer-message">Tal vez algún día podría dedicarte esta canción... quién sabe...</div>
+  <!-- Título translucido arriba -->
+  <h1 id="main-title">Felicidades Kei</h1>
 
-  <!-- Botón secreto girasol -->
-  <button id="secret-button">
-    <img src="sunflower.png" id="sunflower-img" alt="Sunflower">
-  </button>
+  <!-- Frase poética -->
+  <div id="poetic">Tal vez algún día te la dedique... o no... quien chabe</div>
 
-  <!-- Pantalla de premio -->
-  <div id="reward-screen">
-    <h2>Aquí está tu premio</h2>
-    <img src="sunflower.png" class="sunflower-full" alt="Girasol">
+  <!-- Girasol girando como botón secreto -->
+  <button id="sunflower-button"></button>
+
+  <!-- Pantalla final -->
+  <div id="final-screen">
+    <div id="final-message">Kei Kei, aquí está tu premio 💛</div>
+    <div id="giant-sunflower"></div>
+    <canvas id="final-stars"></canvas>
   </div>
 
-  <!-- Audio oculto -->
-  <audio id="bg-audio" src="song.mp3" autoplay preload="auto"></audio>
+  <!-- Reproductor de música oculto pero activable -->
+  <audio id="audio" src="song.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
