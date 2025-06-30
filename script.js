@@ -7,238 +7,239 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configuración
     let audioPlaying = false;
     const sunflowerCount = 7;
+    const sunflowers = [];
     
     // Letras de la canción con traducción
     const lyrics = [
         { 
             english: "You're just too good to be true", 
             spanish: "Eres demasiado buena para ser cierta",
-            time: 0 
+            time: 10
         },
         { 
             english: "Can't take my eyes off of you", 
             spanish: "No puedo apartar mis ojos de ti",
-            time: 4 
+            time: 15 
         },
         { 
             english: "You'd be like Heaven to touch", 
             spanish: "Serías como el cielo al tocar",
-            time: 8 
+            time: 20
         },
         { 
             english: "I wanna hold you so much", 
             spanish: "Quiero abrazarte tanto",
-            time: 12 
+            time: 25
         },
         { 
             english: "At long last, love has arrived", 
             spanish: "Al fin, el amor ha llegado",
-            time: 16 
+            time: 30
         },
         { 
             english: "And I thank God I'm alive", 
             spanish: "Y le agradezco a Dios estar vivo",
-            time: 20 
+            time: 35 
         },
         { 
             english: "You're just too good to be true", 
             spanish: "Eres demasiado buena para ser cierta",
-            time: 24 
+            time: 40
         },
         { 
             english: "Can't take my eyes off of you", 
             spanish: "No puedo apartar mis ojos de ti",
-            time: 28 
+            time: 45
         },
         { 
             english: "Pardon the way that I stare", 
             spanish: "Perdona la forma en que miro",
-            time: 32 
+            time: 50 
         },
         { 
             english: "There's nothin' else to compare", 
             spanish: "No hay nada con qué comparar",
-            time: 36 
+            time: 55
         },
         { 
             english: "The sight of you leaves me weak", 
             spanish: "Tu vista me deja débil",
-            time: 40 
+            time: 60
         },
         { 
             english: "There are no words left to speak", 
             spanish: "No quedan palabras por decir",
-            time: 44 
+            time: 65 
         },
         { 
             english: "But if you feel like I feel", 
             spanish: "Pero si sientes como yo siento",
-            time: 48 
+            time: 70
         },
         { 
             english: "Please let me know that it's real", 
             spanish: "Por favor, dime que es real",
-            time: 52 
+            time: 75 
         },
         { 
             english: "You're just too good to be true", 
             spanish: "Eres demasiado buena para ser cierta",
-            time: 56 
+            time: 80 
         },
         { 
             english: "Can't take my eyes off of you", 
             spanish: "No puedo apartar mis ojos de ti",
-            time: 60 
+            time: 85
         },
         { 
             english: "I love you, baby", 
             spanish: "Te amo, nena",
-            time: 64 
+            time: 90 
         },
         { 
             english: "And if it's quite alright", 
             spanish: "Y si está bien",
-            time: 67 
+            time: 95
         },
         { 
             english: "I need you, baby", 
             spanish: "Te necesito, nena",
-            time: 70 
+            time: 100 
         },
         { 
             english: "To warm the lonely night", 
             spanish: "Para calentar la noche solitaria",
-            time: 73 
+            time: 105
         },
         { 
             english: "I love you, baby", 
             spanish: "Te amo, nena",
-            time: 76 
+            time: 120
         },
         { 
             english: "Trust in me when I say", 
             spanish: "Confía en mí cuando digo",
-            time: 79 
+            time: 125 
         },
         { 
             english: "Oh, pretty baby", 
             spanish: "Oh, bebé bonita",
-            time: 82 
+            time: 130
         },
         { 
             english: "Don't bring me down, I pray", 
             spanish: "No me derrumbes, rezo",
-            time: 85 
+            time: 135
         },
         { 
             english: "Oh, pretty baby", 
             spanish: "Oh, bebé bonita",
-            time: 88 
+            time: 140
         },
         { 
             english: "Now that I've found you, stay", 
             spanish: "Ahora que te he encontrado, quédate",
-            time: 91 
+            time: 145
         },
         { 
             english: "And let me love you, baby", 
             spanish: "Y déjame amarte, nena",
-            time: 94 
+            time: 150
         },
         { 
             english: "Let me love you", 
             spanish: "Déjame amarte",
-            time: 97 
+            time: 155 
         },
         { 
             english: "You're just too good to be true", 
             spanish: "Eres demasiado buena para ser cierta",
-            time: 100 
+            time: 160 
         },
         { 
             english: "Can't take my eyes off of you", 
             spanish: "No puedo apartar mis ojos de ti",
-            time: 104 
+            time: 165
         },
         { 
             english: "You'd be like Heaven to touch", 
             spanish: "Serías como el cielo al tocar",
-            time: 108 
+            time: 170
         },
         { 
             english: "I wanna hold you so much", 
             spanish: "Quiero abrazarte tanto",
-            time: 112 
+            time: 175
         },
         { 
             english: "At long last, love has arrived", 
             spanish: "Al fin, el amor ha llegado",
-            time: 116 
+            time: 180 
         },
         { 
             english: "And I thank God I'm alive", 
             spanish: "Y le agradezco a Dios estar vivo",
-            time: 120 
+            time: 185
         },
         { 
             english: "You're just too good to be true", 
             spanish: "Eres demasiado buena para ser cierta",
-            time: 124 
+            time: 190
         },
         { 
             english: "Can't take my eyes off you", 
             spanish: "No puedo apartar mis ojos de ti",
-            time: 128 
+            time: 200 
         },
         { 
             english: "I love you, baby", 
             spanish: "Te amo, nena",
-            time: 132 
+            time: 205
         },
         { 
             english: "And if it's quite alright", 
             spanish: "Y si está bien",
-            time: 135 
+            time: 210
         },
         { 
             english: "I need you, baby", 
             spanish: "Te necesito, nena",
-            time: 138 
+            time: 215
         },
         { 
             english: "To warm the lonely night", 
             spanish: "Para calentar la noche solitaria",
-            time: 141 
+            time: 220
         },
         { 
             english: "I love you, baby", 
             spanish: "Te amo, nena",
-            time: 144 
+            time: 225 
         },
         { 
             english: "Trust in me when I say", 
             spanish: "Confía en mí cuando digo",
-            time: 147 
+            time: 230
         },
         { 
             english: "Oh, pretty baby", 
             spanish: "Oh, bebé bonita",
-            time: 150 
+            time: 235 
         },
         { 
             english: "Don't bring me down, I pray", 
             spanish: "No me derrumbes, rezo",
-            time: 153 
+            time: 240
         },
         { 
             english: "Oh, pretty baby", 
             spanish: "Oh, bebé bonita",
-            time: 156 
+            time: 245
         },
         { 
             english: "Now that I've found you, stay", 
             spanish: "Ahora que te he encontrado, quédate",
-            time: 159 
+            time: 250
         }
     ];
     
@@ -316,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Crear girasoles
+    // Crear girasoles con movimiento
     function createSunflowers() {
         for (let i = 0; i < sunflowerCount; i++) {
             const sunflower = document.createElement('img');
@@ -331,21 +332,65 @@ document.addEventListener('DOMContentLoaded', function() {
             sunflower.style.left = `${posX}px`;
             sunflower.style.top = `${posY}px`;
             
-            // Velocidad de rotación aleatoria
-            sunflower.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            // Velocidad de movimiento y rotación aleatoria
+            const speedX = (Math.random() - 0.5) * 3;
+            const speedY = (Math.random() - 0.5) * 3;
+            const rotationSpeed = (Math.random() * 2) + 1;
             
             sunflowersContainer.appendChild(sunflower);
+            
+            sunflowers.push({
+                element: sunflower,
+                x: posX,
+                y: posY,
+                speedX: speedX,
+                speedY: speedY,
+                rotation: 0,
+                rotationSpeed: rotationSpeed,
+                width: 60,
+                height: 60
+            });
         }
     }
     
-    // Mostrar letras con efectos
+    // Animación de los girasoles (rebote en bordes)
+    function animateSunflowers() {
+        const maxX = window.innerWidth - 60;
+        const maxY = window.innerHeight - 60;
+        
+        sunflowers.forEach(sunflower => {
+            // Actualizar posición
+            sunflower.x += sunflower.speedX;
+            sunflower.y += sunflower.speedY;
+            
+            // Rebotar en los bordes
+            if (sunflower.x <= 0 || sunflower.x >= maxX) {
+                sunflower.speedX *= -1;
+            }
+            if (sunflower.y <= 0 || sunflower.y >= maxY) {
+                sunflower.speedY *= -1;
+            }
+            
+            // Actualizar rotación
+            sunflower.rotation += sunflower.rotationSpeed;
+            
+            // Aplicar transformaciones
+            sunflower.element.style.left = `${sunflower.x}px`;
+            sunflower.element.style.top = `${sunflower.y}px`;
+            sunflower.element.style.transform = `rotate(${sunflower.rotation}deg)`;
+        });
+        
+        requestAnimationFrame(animateSunflowers);
+    }
+    
+    // Mostrar letras palabra por palabra
     function startLyrics() {
         lyrics.forEach(line => {
             setTimeout(() => {
-                // Mostrar versión en inglés
+                // Mostrar versión en inglés palabra por palabra
                 createLyricElement(line.english, 'english');
                 
-                // Mostrar versión en español 1 segundo después
+                // Mostrar versión en español palabra por palabra 1 segundo después
                 setTimeout(() => {
                     createLyricElement(line.spanish, 'spanish');
                 }, 1000);
@@ -354,27 +399,55 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function createLyricElement(text, language) {
-        const lyricElement = document.createElement('div');
-        lyricElement.className = `lyric ${language}`;
-        lyricElement.textContent = text;
+        const lyricContainer = document.createElement('div');
+        lyricContainer.className = `lyric ${language}`;
         
         // Posición aleatoria dentro de la pantalla
-        const posX = Math.random() * (window.innerWidth - 400) + 100;
+        const posX = Math.random() * (window.innerWidth - 500) + 100;
         const posY = Math.random() * (window.innerHeight - 200) + 100;
         
-        lyricElement.style.left = `${posX}px`;
-        lyricElement.style.top = `${posY}px`;
+        lyricContainer.style.left = `${posX}px`;
+        lyricContainer.style.top = `${posY}px`;
         
-        // Color adicional para español
+        // Dividir el texto en palabras
+        const words = text.split(' ');
+        let delay = 0;
+        
+        words.forEach((word, index) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.textContent = word + ' ';
+            wordSpan.style.opacity = '0';
+            wordSpan.style.display = 'inline-block';
+            wordSpan.style.transition = 'opacity 0.5s ease';
+            
+            // Animación para aparecer palabra por palabra
+            setTimeout(() => {
+                wordSpan.style.opacity = '1';
+            }, delay);
+            
+            delay += 300; // 300ms entre palabras
+            
+            lyricContainer.appendChild(wordSpan);
+        });
+        
+        // Para el español, asignar una animación de movimiento aleatoria
         if (language === 'spanish') {
-            lyricElement.style.textShadow = '0 0 15px rgba(255, 107, 107, 0.9)';
+            const animations = [
+                'moveRight', 'moveLeft', 'moveUp', 'moveDown',
+                'moveUpRight', 'moveUpLeft', 'moveDownRight', 'moveDownLeft'
+            ];
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            lyricContainer.style.animation = `${randomAnimation} 7s ease-in-out forwards`;
+        } else {
+            // Para inglés, mantener la animación de aparición en el mismo lugar
+            lyricContainer.style.animation = `lyricAppear 7s ease-in-out forwards`;
         }
         
-        lyricsContainer.appendChild(lyricElement);
+        lyricsContainer.appendChild(lyricContainer);
         
         // Eliminar después de 7 segundos
         setTimeout(() => {
-            lyricElement.remove();
+            lyricContainer.remove();
         }, 7000);
     }
     
@@ -408,5 +481,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializar
     createSunflowers();
     createParticles();
+    animateSunflowers();
     playAudioImmediately();
+    
+    // Ajustar al cambiar tamaño de ventana
+    window.addEventListener('resize', function() {
+        sunflowers.forEach(sunflower => {
+            const maxX = window.innerWidth - sunflower.width;
+            const maxY = window.innerHeight - sunflower.height;
+            
+            if (sunflower.x > maxX) sunflower.x = maxX;
+            if (sunflower.y > maxY) sunflower.y = maxY;
+        });
+    });
 });
