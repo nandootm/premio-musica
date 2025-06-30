@@ -1,20 +1,18 @@
-const audio = document.getElementById('audio');
-const lyricsContainer = document.getElementById('floating-lyrics');
-const sunflowerButton = document.getElementById('sunflower-button');
-const finalScreen = document.getElementById('final-screen');
-const finalStarsCanvas = document.getElementById('final-stars');
-const ctx = finalStarsCanvas.getContext('2d');
-
-// Forzar autoplay
-window.addEventListener('DOMContentLoaded', () => {
-  audio.play().catch(() => {
-    document.body.addEventListener('click', () => {
-      audio.play();
-    }, { once: true });
-  });
+// Reproducir música automáticamente
+window.addEventListener('load', () => {
+  const audio = document.getElementById('bg-audio');
+  const playAudio = () => {
+    audio.play().catch(() => {
+      document.body.addEventListener('click', () => {
+        audio.play();
+      }, { once: true });
+    });
+  };
+  setTimeout(playAudio, 50);
 });
 
-let lyrics = [
+// Letras flotantes sincronizadas
+const lyrics = [
   "Eres demasiado buena para ser real / You're just too good to be true",
   "No puedo dejar de mirarte / Can't keep my eyes off you",
   "Eres como tocar el cielo / You feel like heaven to touch",
@@ -39,57 +37,58 @@ let lyrics = [
   "Déjame amarte / Let me love you"
 ];
 
-// Mostrar letras flotantes
-function showFloatingLyric(text) {
-  const el = document.createElement('div');
-  el.className = 'lyric';
-  el.style.top = `${Math.random() * 80 + 10}%`;
-  el.style.left = `${Math.random() * 80 + 10}%`;
-  el.textContent = text;
-  lyricsContainer.appendChild(el);
-  setTimeout(() => el.remove(), 10000);
-}
-
+const lyricsContainer = document.getElementById('lyrics-container');
 let i = 0;
 setInterval(() => {
   if (i < lyrics.length) {
-    showFloatingLyric(lyrics[i]);
+    const lyricEl = document.createElement('div');
+    lyricEl.className = 'lyric';
+    lyricEl.textContent = lyrics[i];
+    lyricEl.style.top = `${Math.random() * 90}%`;
+    lyricEl.style.left = `${Math.random() * 90}%`;
+    lyricsContainer.appendChild(lyricEl);
+    setTimeout(() => lyricEl.remove(), 10000);
     i++;
   }
 }, 4000);
 
-// Activar pantalla final
-sunflowerButton.addEventListener('click', () => {
-  finalScreen.style.display = 'block';
-  startFinalStars();
-});
+// Partículas estilo estrellas viajando
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// Estrellas animadas en pantalla final
-function startFinalStars() {
-  finalStarsCanvas.width = window.innerWidth;
-  finalStarsCanvas.height = window.innerHeight;
-  const stars = Array.from({ length: 300 }, () => ({
-    x: Math.random() * finalStarsCanvas.width,
-    y: Math.random() * finalStarsCanvas.height,
-    r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 2,
-    dy: (Math.random() - 0.5) * 2,
-  }));
-
-  function animate() {
-    ctx.clearRect(0, 0, finalStarsCanvas.width, finalStarsCanvas.height);
-    stars.forEach(star => {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-      ctx.fillStyle = 'white';
-      ctx.fill();
-      star.x += star.dx;
-      star.y += star.dy;
-      if (star.x < 0 || star.x > finalStarsCanvas.width) star.dx *= -1;
-      if (star.y < 0 || star.y > finalStarsCanvas.height) star.dy *= -1;
-    });
-    requestAnimationFrame(animate);
-  }
-
-  animate();
+let stars = [];
+for (let i = 0; i < 300; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    dx: (Math.random() - 0.5) * 1.5,
+    dy: (Math.random() - 0.5) * 1.5,
+  });
 }
+
+function animateStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'white';
+  stars.forEach(star => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+    ctx.fill();
+    star.x += star.dx;
+    star.y += star.dy;
+    if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
+    if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
+  });
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+
+// Botón secreto y pantalla de premio
+const secretButton = document.getElementById('secret-button');
+const rewardScreen = document.getElementById('reward-screen');
+
+secretButton.addEventListener('click', () => {
+  rewardScreen.style.display = 'flex';
+});
