@@ -1,7 +1,6 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body, html { width:100%; height:100%; overflow:hidden; background:#000; font-family:'Segoe UI', sans-serif; color:#fff; }
 
-/* Pantalla 1 - psicodélica */
 .psychedelic {
   animation: blink-bg 0.8s infinite;
   overflow: hidden;
@@ -38,12 +37,8 @@ body, html { width:100%; height:100%; overflow:hidden; background:#000; font-fam
   cursor: pointer;
 }
 
-/* Página 2 - main.html */
 #background-video {
-  position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-2;
-}
-#particle-canvas {
-  position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+  position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1;
 }
 .title {
   position:absolute;
@@ -60,16 +55,6 @@ body, html { width:100%; height:100%; overflow:hidden; background:#000; font-fam
   50% {opacity:1;}
   100% {opacity:0;}
 }
-#sunflower {
-  position:absolute;
-  width:40vw;
-  opacity:0.4;
-  top:20%;
-  left:5%;
-  animation:spin 10s linear infinite;
-  transform-origin:50% 50%;
-}
-@keyframes spin { 100% {transform:rotate(360deg);} }
 .lyric-line {
   position:absolute;
   font-size:2em;
@@ -79,4 +64,3 @@ body, html { width:100%; height:100%; overflow:hidden; background:#000; font-fam
   opacity:0;
   pointer-events:none;
 }
-
