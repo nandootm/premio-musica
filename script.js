@@ -33,7 +33,7 @@ const lyrics = [
 function showLyric(line){
   const div = document.createElement('div');
   div.className = 'lyric-line';
-  div.innerHTML = `${line.en}<br><i style="color:#f0f">${line.es}</i>`;
+  div.innerHTML = `${line.en}<br><i style=\"color:#f0f\">${line.es}</i>`;
   div.style.top = `${Math.random()*80 + 5}%`;
   div.style.left = `${Math.random()*80 + 5}%`;
   lyricsContainer.appendChild(div);
