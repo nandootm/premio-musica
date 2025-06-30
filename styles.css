@@ -55,7 +55,6 @@ html, body {
   position: absolute;
   width: 100%;
   text-align: center;
-  top: 100px;
   z-index: 10;
 }
 
@@ -74,5 +73,3 @@ html, body {
   top: 300px;
   color: #ffe089;
 }
-
-
