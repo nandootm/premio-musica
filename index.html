@@ -3,31 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Felicidades Kei</title>
+  <title>Gracias por esperar Keikei</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Video de fondo -->
-  <video id="bg-video" autoplay muted loop playsinline>
+  <video autoplay loop muted playsinline id="background-video">
     <source src="background.mp4" type="video/mp4" />
-    Tu navegador no soporta video.
   </video>
 
-  <!-- Canvas para partículas (si quieres efectos adicionales luego) -->
-  <canvas id="bg-canvas"></canvas>
+  <div id="lyrics-container"></div>
+  <img src="sunflower.png" id="sunflower" />
 
-  <!-- Letras flotantes -->
-  <div id="floating-lyrics"></div>
+  <audio id="music" src="song.mp3" autoplay></audio>
+  <button id="pauseBtn">⏸</button>
 
-  <!-- Título translucido arriba -->
-  <h1 id="main-title">Felicidades Kei</h1>
-
-  <!-- Frase poética -->
-  <div id="poetic">Tal vez algún día te la dedique... o no... quien chabe</div>
-
-  <!-- Reproductor de música oculto pero activable -->
-  <audio id="audio" src="song.mp3" preload="auto"></audio>
+  <div class="title">Gracias por esperar Keikei</div>
+  <div class="poema">tal vez algún día te la llegue a dedicar... o no... quien chabe</div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
