@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gracias por esperar Keikei</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Keikei</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <video autoplay muted loop id="bg-video">
+        <source src="background.mp4" type="video/mp4">
+    </video>
 
-  <!-- Video de fondo -->
-  <video autoplay muted loop playsinline id="background-video">
-    <source src="background.mp4" type="video/mp4">
-    Tu navegador no soporta este video.
-  </video>
+    <div id="content">
+        <h1>Gracias por esperar Keikei</h1>
+        <div id="lyrics-container"></div>
+        <img id="sunflower" src="sunflower.png" alt="Girasol">
+        
+        <button id="audio-control">⏸</button>
+        
+        <div id="footer">
+            <p>Tal vez algún día te la llegue a dedicar... o no... quien chabe</p>
+        </div>
+    </div>
 
-  <!-- Letras en inglés -->
-  <div class="lyrics lyrics-en" id="lyrics-en"></div>
+    <audio id="song" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
 
-  <!-- Letras en español -->
-  <div class="lyrics lyrics-es" id="lyrics-es"></div>
-
-  <!-- Título -->
-  <div class="title">Gracias por esperar Keikei</div>
-  <div class="poema">tal vez algún día te la llegue a dedicar... o no... quien chabe</div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
