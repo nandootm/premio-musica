@@ -5,29 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gracias por esperar Keikei</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <!-- Video de fondo -->
-  <video autoplay loop muted playsinline id="background-video">
-    <source src="background.mp4" type="video/mp4" />
+  <video autoplay muted loop playsinline id="background-video">
+    <source src="background.mp4" type="video/mp4">
+    Tu navegador no soporta este video.
   </video>
 
-  <!-- Letras -->
-  <div id="lyrics-container-en"></div>
-  <div id="lyrics-container-es"></div>
+  <!-- Letras en inglés -->
+  <div class="lyrics lyrics-en">
+    <p>You're just too good to be true</p>
+    <p>Can't take my eyes off of you</p>
+    <p>You'd be like Heaven to touch</p>
+    <p>I wanna hold you so much</p>
+    <p>At long last, love has arrived</p>
+    <p>And I thank God I'm alive</p>
+    <p>You're just too good to be true</p>
+    <p>Can't take my eyes off of you</p>
+  </div>
 
-  <!-- Girasoles -->
-  <div id="sunflowers"></div>
+  <!-- Letras en español -->
+  <div class="lyrics lyrics-es">
+    <p>Eres demasiado perfecta para ser verdad</p>
+    <p>No puedo apartar mis ojos de ti</p>
+    <p>Serías como el cielo al tocar</p>
+    <p>Quiero abrazarte tanto</p>
+    <p>Por fin el amor ha llegado</p>
+    <p>Y doy gracias a Dios por estar vivo</p>
+    <p>Eres demasiado perfecta para ser verdad</p>
+    <p>No puedo apartar mis ojos de ti</p>
+  </div>
 
-  <!-- Música y controles -->
-  <audio id="music" src="song.mp3" autoplay></audio>
-  <button id="pauseBtn">⏸</button>
-
-  <!-- Título y mensaje -->
+  <!-- Título -->
   <div class="title">Gracias por esperar Keikei</div>
   <div class="poema">tal vez algún día te la llegue a dedicar... o no... quien chabe</div>
 
-  <script src="script.js"></script>
 </body>
 </html>
