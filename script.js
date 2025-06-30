@@ -2,15 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const audio = document.getElementById('song');
     const audioControl = document.getElementById('audio-control');
     const lyricsContainer = document.getElementById('lyrics-container');
-    const sunflower = document.getElementById('sunflower');
+    const sunflowerContainer = document.querySelector('.sunflower-container');
     
     // Configuración inicial
     let audioPlaying = false;
-    let sunflowerX = 50;
-    let sunflowerY = 50;
-    let sunflowerSpeedX = 2;
-    let sunflowerSpeedY = 2;
-    let rotation = 0;
+    const sunflowers = [];
+    const sunflowerCount = 7;
+    const sunflowerSpeeds = [];
     
     // Letras de la canción con tiempos aproximados
     const lyrics = [
@@ -62,19 +60,41 @@ document.addEventListener('DOMContentLoaded', function() {
         { text: "Now that I've found you, stay", time: 159 }
     ];
     
-    // Reproducir audio automáticamente (con interacción del usuario)
-    document.body.addEventListener('click', function() {
-        if (!audioPlaying) {
-            audio.play().then(() => {
+    // Intentar reproducir audio inmediatamente
+    function tryPlayAudio() {
+        audio.play().then(() => {
+            audioPlaying = true;
+            audioControl.textContent = '⏸';
+            startLyrics();
+        }).catch(error => {
+            console.log('La reproducción automática fue bloqueada:', error);
+            audioControl.textContent = '▶';
+            // Mostrar instrucción para hacer clic
+            const instruction = document.createElement('div');
+            instruction.textContent = 'Haz clic en cualquier parte para reproducir la música';
+            instruction.style.position = 'fixed';
+            instruction.style.top = '50%';
+            instruction.style.left = '50%';
+            instruction.style.transform = 'translate(-50%, -50%)';
+            instruction.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            instruction.style.padding = '20px';
+            instruction.style.borderRadius = '10px';
+            instruction.style.zIndex = '100';
+            document.body.appendChild(instruction);
+            
+            document.body.addEventListener('click', function initAudio() {
+                audio.play();
                 audioPlaying = true;
                 audioControl.textContent = '⏸';
                 startLyrics();
-            }).catch(error => {
-                console.log('La reproducción automática fue bloqueada:', error);
-                audioControl.textContent = '▶';
+                document.body.removeChild(instruction);
+                document.body.removeEventListener('click', initAudio);
             });
-        }
-    }, { once: true });
+        });
+    }
+    
+    // Iniciar la reproducción al cargar
+    tryPlayAudio();
     
     // Control de audio
     audioControl.addEventListener('click', function() {
@@ -88,52 +108,104 @@ document.addEventListener('DOMContentLoaded', function() {
         audioPlaying = !audioPlaying;
     });
     
-    // Mostrar letras sincronizadas
+    // Mostrar letras en posiciones aleatorias
     function startLyrics() {
         lyrics.forEach((line, index) => {
             setTimeout(() => {
                 const lyricElement = document.createElement('div');
                 lyricElement.className = 'lyric';
                 lyricElement.textContent = line.text;
-                lyricElement.style.animationDuration = `${lyrics.length * 0.3}s`;
+                
+                // Posición aleatoria
+                const posX = Math.random() * (window.innerWidth - 300) + 50;
+                const posY = Math.random() * (window.innerHeight - 100) + 50;
+                
+                lyricElement.style.left = `${posX}px`;
+                lyricElement.style.top = `${posY}px`;
+                
+                // Color aleatorio (tonos cálidos)
+                const hue = Math.random() * 60 + 10; // Entre amarillo y rojo
+                lyricElement.style.color = `hsl(${hue}, 100%, 70%)`;
+                
                 lyricsContainer.appendChild(lyricElement);
                 
                 // Eliminar la letra después de que termine la animación
                 setTimeout(() => {
                     lyricElement.remove();
-                }, 15000);
+                }, 6000);
             }, line.time * 1000);
         });
     }
     
-    // Animación del girasol
-    function animateSunflower() {
-        const maxX = window.innerWidth - sunflower.width;
-        const maxY = window.innerHeight - sunflower.height;
-        
-        sunflowerX += sunflowerSpeedX;
-        sunflowerY += sunflowerSpeedY;
-        rotation += 2;
-        
-        // Rebotar en los bordes
-        if (sunflowerX <= 0 || sunflowerX >= maxX) {
-            sunflowerSpeedX *= -1;
+    // Crear 7 girasoles
+    function createSunflowers() {
+        for (let i = 0; i < sunflowerCount; i++) {
+            const sunflower = document.createElement('img');
+            sunflower.className = 'sunflower';
+            sunflower.src = 'sunflower.png';
+            sunflower.alt = 'Girasol';
+            
+            // Posición inicial aleatoria
+            const posX = Math.random() * (window.innerWidth - 80);
+            const posY = Math.random() * (window.innerHeight - 80);
+            
+            sunflower.style.left = `${posX}px`;
+            sunflower.style.top = `${posY}px`;
+            
+            // Velocidad aleatoria
+            const speedX = (Math.random() * 3 + 1) * (Math.random() > 0.5 ? 1 : -1);
+            const speedY = (Math.random() * 3 + 1) * (Math.random() > 0.5 ? 1 : -1);
+            
+            sunflowerContainer.appendChild(sunflower);
+            sunflowers.push({
+                element: sunflower,
+                x: posX,
+                y: posY,
+                speedX: speedX,
+                speedY: speedY,
+                rotation: Math.random() * 360
+            });
         }
-        if (sunflowerY <= 0 || sunflowerY >= maxY) {
-            sunflowerSpeedY *= -1;
-        }
-        
-        sunflower.style.left = `${sunflowerX}px`;
-        sunflower.style.top = `${sunflowerY}px`;
-        sunflower.style.transform = `rotate(${rotation}deg)`;
-        
-        requestAnimationFrame(animateSunflower);
     }
     
-    // Iniciar animaciones
-    animateSunflower();
+    // Animación de los girasoles
+    function animateSunflowers() {
+        const maxX = window.innerWidth - 80;
+        const maxY = window.innerHeight - 80;
+        
+        sunflowers.forEach(sunflower => {
+            sunflower.x += sunflower.speedX;
+            sunflower.y += sunflower.speedY;
+            sunflower.rotation += sunflower.speedX;
+            
+            // Rebotar en los bordes
+            if (sunflower.x <= 0 || sunflower.x >= maxX) {
+                sunflower.speedX *= -1;
+            }
+            if (sunflower.y <= 0 || sunflower.y >= maxY) {
+                sunflower.speedY *= -1;
+            }
+            
+            sunflower.element.style.left = `${sunflower.x}px`;
+            sunflower.element.style.top = `${sunflower.y}px`;
+            sunflower.element.style.transform = `rotate(${sunflower.rotation}deg)`;
+        });
+        
+        requestAnimationFrame(animateSunflowers);
+    }
     
-    // Posición inicial aleatoria del girasol
-    sunflowerX = Math.random() * (window.innerWidth - sunflower.width);
-    sunflowerY = Math.random() * (window.innerHeight - sunflower.height);
+    // Inicializar
+    createSunflowers();
+    animateSunflowers();
+    
+    // Ajustar al cambiar tamaño de ventana
+    window.addEventListener('resize', function() {
+        sunflowers.forEach(sunflower => {
+            const maxX = window.innerWidth - 80;
+            const maxY = window.innerHeight - 80;
+            
+            if (sunflower.x > maxX) sunflower.x = maxX;
+            if (sunflower.y > maxY) sunflower.y = maxY;
+        });
+    });
 });
