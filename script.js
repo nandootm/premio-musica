@@ -3,6 +3,18 @@ const pauseBtn = document.getElementById('pauseBtn');
 const containerEn = document.getElementById('lyrics-container-en');
 const containerEs = document.getElementById('lyrics-container-es');
 const sunflowerContainer = document.getElementById('sunflowers');
+const backgroundVideo = document.getElementById('background-video');
+
+// Forzar video en autoplay (para navegadores con restricciones)
+document.addEventListener('DOMContentLoaded', () => {
+  backgroundVideo.play().catch(() => {
+    document.body.addEventListener('click', () => backgroundVideo.play(), { once: true });
+  });
+
+  showLyrics();
+  const first = createSunflower();
+  sunflowers.push(first);
+});
 
 const lyricsEn = `
 You're just too good to be true
@@ -27,31 +39,32 @@ No puedo apartar mis ojos de ti
 `.trim().split('\n');
 
 let index = 0;
+
 function showLyrics() {
   if (index >= lyricsEn.length) return;
 
-  const lineEn = document.createElement('div');
-  lineEn.className = 'lyric-line';
-  lineEn.textContent = lyricsEn[index];
-  lineEn.style.top = `${Math.random() * 70 + 10}%`;
-  lineEn.style.left = `${Math.random() * 70 + 10}%`;
+  const en = document.createElement('div');
+  en.className = 'lyric-line';
+  en.textContent = lyricsEn[index];
+  en.style.top = `${Math.random() * 70 + 10}%`;
+  en.style.left = `${Math.random() * 70 + 10}%`;
 
-  const lineEs = document.createElement('div');
-  lineEs.className = 'lyric-es';
-  lineEs.textContent = lyricsEs[index];
-  lineEs.style.top = `${Math.random() * 80 + 10}%`;
-  lineEs.style.left = `${Math.random() * 80 + 10}%`;
+  const es = document.createElement('div');
+  es.className = 'lyric-es';
+  es.textContent = lyricsEs[index];
+  es.style.top = `${Math.random() * 70 + 10}%`;
+  es.style.left = `${Math.random() * 70 + 10}%`;
 
-  containerEn.appendChild(lineEn);
-  containerEs.appendChild(lineEs);
+  containerEn.appendChild(en);
+  containerEs.appendChild(es);
 
   setTimeout(() => {
-    lineEn.remove();
-    lineEs.remove();
+    en.remove();
+    es.remove();
   }, 8000);
 
   index++;
-  setTimeout(showLyrics, 4000);
+  setTimeout(showLyrics, 4500);
 }
 
 pauseBtn.addEventListener('click', () => {
@@ -64,9 +77,10 @@ pauseBtn.addEventListener('click', () => {
   }
 });
 
-// Sunflower logic
-let bounceCount = 0;
+// 🌻 Lógica de girasoles con rebotes y duplicación inteligente
 let sunflowers = [];
+let totalBounces = 0;
+let thresholds = [4, 10, 15, 20, 30, 45];
 
 function createSunflower(x = 100, y = 100, dx = 2, dy = 2) {
   const img = document.createElement('img');
@@ -74,32 +88,48 @@ function createSunflower(x = 100, y = 100, dx = 2, dy = 2) {
   img.className = 'sunflower';
   sunflowerContainer.appendChild(img);
 
+  let bounces = 0;
+  let nextThresholdIndex = 0;
+
   function animate() {
     const bounds = img.getBoundingClientRect();
     const w = window.innerWidth - bounds.width;
     const h = window.innerHeight - bounds.height;
+
+    let bounced = false;
 
     x += dx;
     y += dy;
 
     if (x <= 0 || x >= w) {
       dx *= -1;
-      bounceCount++;
+      bounced = true;
     }
     if (y <= 0 || y >= h) {
       dy *= -1;
-      bounceCount++;
+      bounced = true;
+    }
+
+    if (bounced) {
+      bounces++;
+      totalBounces++;
+
+      const currentThreshold = thresholds[nextThresholdIndex];
+      if ((bounces >= currentThreshold || totalBounces >= currentThreshold) && sunflowers.length < 20) {
+        const clone = createSunflower(
+          Math.random() * w,
+          Math.random() * h,
+          2 * (Math.random() - 0.5),
+          2 * (Math.random() - 0.5)
+        );
+        sunflowers.push(clone);
+        nextThresholdIndex++;
+      }
     }
 
     img.style.left = `${x}px`;
     img.style.top = `${y}px`;
     img.style.transform = `rotate(${Date.now() % 360}deg)`;
-
-    if (bounceCount % 6 === 0 && bounceCount !== 0 && sunflowers.length < 10) {
-      const clone = createSunflower(Math.random() * w, Math.random() * h, 2 * (Math.random() - 0.5), 2 * (Math.random() - 0.5));
-      sunflowers.push(clone);
-      bounceCount++;
-    }
 
     requestAnimationFrame(animate);
   }
@@ -108,8 +138,3 @@ function createSunflower(x = 100, y = 100, dx = 2, dy = 2) {
   return img;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  showLyrics();
-  const first = createSunflower();
-  sunflowers.push(first);
-});
