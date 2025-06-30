@@ -2,80 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Felicidades Kei</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Video de fondo -->
-  <video autoplay muted loop id="bg-video">
+  <video id="bg-video" autoplay muted loop playsinline>
     <source src="background.mp4" type="video/mp4" />
+    Tu navegador no soporta video.
   </video>
 
-  <!-- Canvas con efecto de estrellas -->
+  <!-- Canvas para partículas (si quieres efectos adicionales luego) -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Girasol giratorio reducido -->
-  <div id="sunflower"></div>
+  <!-- Letras flotantes -->
+  <div id="floating-lyrics"></div>
 
-  <!-- Letras grandes de fondo -->
-  <div id="background-lyrics"></div>
+  <!-- Título translucido arriba -->
+  <h1 id="main-title">Felicidades Kei</h1>
 
-  <!-- Texto poético -->
-  <div id="poetic">Tal vez algún día podría llegar a dedicártela</div>
+  <!-- Frase poética -->
+  <div id="poetic">Tal vez algún día te la dedique... o no... quien chabe</div>
 
-  <!-- Lente iluminada -->
-  <div id="lens"></div>
-
-  <!-- Contenido principal -->
-  <div class="container">
-    <h1 class="arcade-title">🎮 Felicidades Kei 🎶</h1>
-    <audio id="audio" src="song.mp3" controls autoplay></audio>
-    <div class="lyrics" id="lyrics">
-      <pre>
-No Puedo Dejar de Mirarte / Can't Take My Eyes Off You
-Eres demasiado buena para ser real / You're just too good to be true
-No puedo dejar de mirarte / Can't keep my eyes off you
-Eres como tocar el cielo / You feel like heaven to touch
-Quiero abrazarte tanto / I wanna hold you so much
-Por fin, el amor ha llegado / At long last love has arrived
-Y doy gracias a Dios que estoy vivo / And I thank God I'm alive
-Eres demasiado buena para ser real / You're just too good to be true
-No puedo dejar de mirarte / Can't take my eyes off you
-
-Perdóname por la manera que te miro / Pardon the way that I stare
-No hay nada más para comparar / There's nothing else to compare
-Es que mirarte me deja débil / The sight of you makes me weak
-No hay más palabras que decir / There are no words left to speak
-Pero si te sientes como me siento / But if you feel like I feel
-Por favor, déjame saber que eso es de verdad / Please, let me know that it's real
-
-Te amo, mi amor / I love you, baby
-Y si eso está bien / And if it's quite all right
-Te necesito, mi amor / I need you, baby
-Para calentar mis noches solitarias / To warm the lonely nights
-Créeme cuando digo / Trust in me when I say
-Oh, amor mío / Oh, pretty baby
-No me decepciones, te lo ruego / Don't bring me down, I pray
-Ahora que te encontré, quédate / Now that I found you, stay
-Y déjame amarte, mi amor / And let me love you, baby
-Déjame amarte / Let me love you
-
-Eres demasiado buena para ser real / You're just too good to be true
-No puedo dejar de mirarte / Can't keep my eyes off you
-Te amo, mi amor / I love you, baby
-Y si eso está bien / And if it's quite all right
-Te necesito, mi amor / I need you, baby
-Para calentar mis noches solitarias / To warm the lonely nights
-Oh, amor mío / Oh, pretty baby
-No me decepciones, te lo ruego / Don't bring me down, I pray
-Ahora que te encontré, quédate / Now that I found this day
-Y déjame amarte, mi amor / Let me love you, baby
-Déjame amarte / Let me love you
-      </pre>
-    </div>
-  </div>
+  <!-- Reproductor de música oculto pero activable -->
+  <audio id="audio" src="song.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
