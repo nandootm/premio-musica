@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premio a la Genia de la Música</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Te ganaste el premio a la <span>Genia de la Música</span> 🎶</h1>
+    
+    <div class="player">
+      <audio id="audio" src="song.mp3" controls autoplay loop></audio>
+    </div>
+    
+    <div class="lyrics-box">
+      <pre class="lyrics">
+Aquí van las letras de la canción.
+Puedes copiarlas directamente dentro de este
+bloque <code>&lt;pre&gt;</code> para que conserven su formato.
+
+Por ejemplo:
+♫ Corazón que late fuerte,
+   notas que brillan en la mente,
+   tú eres mi melodía ardiente… ♫
+      </pre>
+    </div>
+    
+    <div id="hearts"></div>
+  </div>
+
+  <script>
+    // Generar corazones flotantes
+    const heartsContainer = document.getElementById('hearts');
+    for(let i=0; i<30; i++){
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+      heartsContainer.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
