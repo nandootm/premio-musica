@@ -1,8 +1,8 @@
-const sunflower = document.getElementById('sunflower');
 const audio = document.getElementById('music');
 const pauseBtn = document.getElementById('pauseBtn');
-const lyricsContainer = document.getElementById('lyrics-container');
-const lyricsContainerEs = document.getElementById('lyrics-container-es');
+const containerEn = document.getElementById('lyrics-container-en');
+const containerEs = document.getElementById('lyrics-container-es');
+const sunflowerContainer = document.getElementById('sunflowers');
 
 const lyricsEn = `
 You're just too good to be true
@@ -27,29 +27,28 @@ No puedo apartar mis ojos de ti
 `.trim().split('\n');
 
 let index = 0;
-
 function showLyrics() {
   if (index >= lyricsEn.length) return;
 
   const lineEn = document.createElement('div');
-  lineEn.className = 'lyric-line fade';
+  lineEn.className = 'lyric-line';
   lineEn.textContent = lyricsEn[index];
   lineEn.style.top = `${Math.random() * 70 + 10}%`;
-  lineEn.style.left = `${Math.random() * 80 + 10}%`;
+  lineEn.style.left = `${Math.random() * 70 + 10}%`;
 
   const lineEs = document.createElement('div');
-  lineEs.className = 'lyric-line-es spin';
+  lineEs.className = 'lyric-es';
   lineEs.textContent = lyricsEs[index];
   lineEs.style.top = `${Math.random() * 80 + 10}%`;
-  lineEs.style.left = `${Math.random() * 90 + 5}%`;
+  lineEs.style.left = `${Math.random() * 80 + 10}%`;
 
-  lyricsContainer.appendChild(lineEn);
-  lyricsContainerEs.appendChild(lineEs);
+  containerEn.appendChild(lineEn);
+  containerEs.appendChild(lineEs);
 
   setTimeout(() => {
     lineEn.remove();
     lineEs.remove();
-  }, 7000);
+  }, 8000);
 
   index++;
   setTimeout(showLyrics, 4000);
@@ -65,29 +64,52 @@ pauseBtn.addEventListener('click', () => {
   }
 });
 
-// Girasol rebota y gira
-let x = 100, y = 100, dx = 1.5, dy = 1.5;
+// Sunflower logic
+let bounceCount = 0;
+let sunflowers = [];
 
-function moveSunflower() {
-  const bounds = sunflower.getBoundingClientRect();
-  const w = window.innerWidth - bounds.width;
-  const h = window.innerHeight - bounds.height;
+function createSunflower(x = 100, y = 100, dx = 2, dy = 2) {
+  const img = document.createElement('img');
+  img.src = 'sunflower.png';
+  img.className = 'sunflower';
+  sunflowerContainer.appendChild(img);
 
-  x += dx;
-  y += dy;
+  function animate() {
+    const bounds = img.getBoundingClientRect();
+    const w = window.innerWidth - bounds.width;
+    const h = window.innerHeight - bounds.height;
 
-  if (x <= 0 || x >= w) dx *= -1;
-  if (y <= 0 || y >= h) dy *= -1;
+    x += dx;
+    y += dy;
 
-  sunflower.style.left = `${x}px`;
-  sunflower.style.top = `${y}px`;
-  sunflower.style.transform = `rotate(${Date.now() / 10 % 360}deg)`;
+    if (x <= 0 || x >= w) {
+      dx *= -1;
+      bounceCount++;
+    }
+    if (y <= 0 || y >= h) {
+      dy *= -1;
+      bounceCount++;
+    }
 
-  requestAnimationFrame(moveSunflower);
+    img.style.left = `${x}px`;
+    img.style.top = `${y}px`;
+    img.style.transform = `rotate(${Date.now() % 360}deg)`;
+
+    if (bounceCount % 6 === 0 && bounceCount !== 0 && sunflowers.length < 10) {
+      const clone = createSunflower(Math.random() * w, Math.random() * h, 2 * (Math.random() - 0.5), 2 * (Math.random() - 0.5));
+      sunflowers.push(clone);
+      bounceCount++;
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+  return img;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   showLyrics();
-  moveSunflower();
-  document.querySelector('.title').classList.add('fade-out');
+  const first = createSunflower();
+  sunflowers.push(first);
 });
