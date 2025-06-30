@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Felicidades Kei</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Te gustan los girasoles?</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <video loop muted playsinline id="background-video">
-    <source src="background.mp4" type="video/mp4" />
-  </video>
+<body class="psychedelic">
+  <canvas id="stars"></canvas>
+  <div class="intro-container">
+    <img src="sunflower.png" class="big-sunflower" alt="Sunflower">
+    <div class="question">¿Te gustan los girasoles?</div>
+    <button class="cta" onclick="goToMain()">¿POR QUÉ NO PRESIONAS AQUÍ?</button>
+  </div>
 
-  <canvas id="particle-canvas"></canvas>
+  <script>
+    function goToMain() {
+      window.location.href = 'main.html';
+    }
 
-  <img src="sunflower.png" id="sunflower" />
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
 
-  <div class="title">Felicidades Kei</div>
-  <button id="playBtn">▶️</button>
-  <div id="lyrics-container"></div>
+    let stars = Array.from({length: 200}, () => ({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*1.5
+    }));
 
-  <audio id="music" src="song.mp3"></audio>
-
-  <script src="script.js"></script>
+    function draw() {
+      ctx.fillStyle = `hsl(${Math.random()*360}, 100%, 5%)`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
 </body>
 </html>
