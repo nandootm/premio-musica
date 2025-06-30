@@ -1,75 +1,117 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    height: 100vh;
+    position: relative;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: 'Georgia', serif;
-  overflow: hidden;
-  color: white;
-  position: relative;
-  background-color: black;
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    filter: brightness(0.7);
 }
 
-/* Video de fondo */
-#background-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.6);
+#content {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-/* Título */
-.title {
-  position: absolute;
-  top: 20px;
-  width: 100%;
-  text-align: center;
-  font-size: 3em;
-  font-weight: bold;
-  text-shadow: 3px 3px 10px black;
-  z-index: 10;
+h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    animation: glow 2s infinite alternate;
 }
 
-/* Poema */
-.poema {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  font-size: 1em;
-  font-style: italic;
-  opacity: 0.7;
-  z-index: 10;
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6;
+    }
 }
 
-/* Letras */
-.lyrics {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  z-index: 10;
+#lyrics-container {
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    perspective: 500px;
+    overflow: hidden;
+    margin-top: 5rem;
 }
 
-.lyrics p {
-  font-size: 2em;
-  margin: 0.5em 0;
-  text-shadow: 2px 2px 4px black;
+.lyric {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: rotateX(20deg);
+    animation: crawl 15s linear;
+    text-shadow: 0 0 5px gold, 0 0 10px gold;
 }
 
-/* Ajustes por idioma */
-.lyrics-en {
-  top: 100px;
+@keyframes crawl {
+    0% {
+        transform: rotateX(20deg) translateY(100%);
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotateX(20deg) translateY(-100%);
+        opacity: 0;
+    }
 }
 
-.lyrics-es {
-  top: 300px;
-  color: #ffe089;
+#sunflower {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transition: transform 0.1s;
+}
+
+#audio-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+#audio-control:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#footer {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
