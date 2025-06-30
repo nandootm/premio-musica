@@ -1,0 +1,105 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fondo psicodélico animado */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(-45deg, #ff007f, #7f00ff, #00ffe7, #ffcb00);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.3);
+  border-radius: 16px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-shadow: 0 0 8px rgba(255,255,255,0.6);
+  margin-bottom: 1rem;
+}
+
+h1 span {
+  color: #ffea00;
+  text-shadow: 0 0 12px #ffea00;
+}
+
+/* Player */
+.player audio {
+  width: 100%;
+  max-width: 500px;
+  border: none;
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+/* Caja de letras */
+.lyrics-box {
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.4);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.lyrics {
+  white-space: pre-wrap;
+  line-height: 1.4;
+  font-family: 'Courier New', monospace;
+}
+
+/* Corazones flotantes */
+#hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 1.5rem;
+  color: rgba(255, Math.random()*255, Math.random()*255, 0.9);
+  animation-name: floatUp;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
