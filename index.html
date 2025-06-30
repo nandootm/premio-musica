@@ -5,26 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gracias por esperar Keikei</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <video autoplay loop muted playsinline id="background-video">
+  <!-- Video de fondo -->
+  <video autoplay loop muted playsinline id="background-video">
     <source src="background.mp4" type="video/mp4" />
-    Tu navegador no soporta el video de fondo.
   </video>
 
-  <div class="title">Gracias por esperar Keikei</div>
-  <div class="poema">tal vez algún día te la llegue a dedicar... o no... quien chabe</div>
-
-  <audio id="music" src="song.mp3" autoplay></audio>
-  <button id="pauseBtn">⏸</button>
-
+  <!-- Letras -->
   <div id="lyrics-container-en"></div>
   <div id="lyrics-container-es"></div>
 
+  <!-- Girasoles -->
   <div id="sunflowers"></div>
+
+  <!-- Música y controles -->
+  <audio id="music" src="song.mp3" autoplay></audio>
+  <button id="pauseBtn">⏸</button>
+
+  <!-- Título y mensaje -->
+  <div class="title">Gracias por esperar Keikei</div>
+  <div class="poema">tal vez algún día te la llegue a dedicar... o no... quien chabe</div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
