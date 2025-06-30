@@ -1,23 +1,50 @@
-body {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     overflow: hidden;
     font-family: 'Arial', sans-serif;
     color: white;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     height: 100vh;
     position: relative;
     touch-action: manipulation;
+    background-color: #000;
+}
+
+#bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+    animation: gentleShake 30s infinite linear;
 }
 
 #bg-video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     min-width: 100%;
     min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    filter: brightness(0.7) blur(1px);
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.7) 100%);
     z-index: -1;
-    filter: brightness(0.7);
 }
 
 #content {
@@ -29,23 +56,21 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    box-sizing: border-box;
     text-align: center;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 2rem;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073;
-    }
-    to {
-        text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6;
-    }
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    animation: titleFade 8s forwards;
+    background: linear-gradient(45deg, #ffcc00, #ff9500, #ff2a00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 #lyrics-container {
@@ -53,44 +78,40 @@ h1 {
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: 2;
 }
 
 .lyric {
     position: absolute;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: bold;
     opacity: 0;
-    text-shadow: 0 0 10px gold, 0 0 20px rgba(255, 215, 0, 0.7);
-    animation: lyricAnimation 6s linear forwards;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+    animation: lyricAppear 7s ease-in-out forwards;
     white-space: nowrap;
+    padding: 10px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
-@keyframes lyricAnimation {
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    20% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    80% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
+.english {
+    color: #ffcc00;
+}
+
+.spanish {
+    color: #ff6b6b;
+    font-style: italic;
 }
 
 .sunflower {
     position: absolute;
-    width: 80px;
-    height: 80px;
-    opacity: 0.7;
-    transition: transform 0.2s;
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
     pointer-events: none;
+    animation: rotate 5s infinite linear;
+    filter: drop-shadow(0 0 8px gold);
 }
 
 #audio-control {
@@ -98,25 +119,68 @@ h1 {
     bottom: 20px;
     right: 20px;
     background: rgba(255, 255, 255, 0.2);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
     cursor: pointer;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
     z-index: 10;
+    transition: all 0.3s;
 }
 
 #audio-control:hover {
     background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
 }
 
 #footer {
     position: fixed;
     bottom: 10px;
     left: 10px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     opacity: 0.7;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px 10px;
+    border-radius: 5px;
+    backdrop-filter: blur(3px);
+    max-width: 80%;
 }
+
+/* Animaciones */
+@keyframes gentleShake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-2px, -1px); }
+    20% { transform: translate(2px, 1px); }
+    30% { transform: translate(-1px, 2px); }
+    40% { transform: translate(1px, -2px); }
+    50% { transform: translate(-1px, 1px); }
+    60% { transform: translate(2px, -1px); }
+    70% { transform: translate(-2px, 1px); }
+    80% { transform: translate(1px, 2px); }
+    90% { transform: translate(-1px, -2px); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes lyricAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+    }
+    85% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) 
