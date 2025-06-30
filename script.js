@@ -2,8 +2,9 @@ const sunflower = document.getElementById('sunflower');
 const audio = document.getElementById('music');
 const pauseBtn = document.getElementById('pauseBtn');
 const lyricsContainer = document.getElementById('lyrics-container');
+const lyricsEsContainer = document.getElementById('lyrics-es-container');
 
-const lyrics = `
+const lyricsEn = `
 You're just too good to be true
 Can't take my eyes off of you
 You'd be like Heaven to touch
@@ -55,58 +56,77 @@ Trust in me when I say
 Oh, pretty baby
 `.trim().split('\n');
 
+const lyricsEs = `
+Eres demasiado buena para ser verdad
+No puedo apartar mis ojos de ti
+Serías como el cielo al tocarte
+Quiero abrazarte tanto
+Por fin, el amor ha llegado
+Y le agradezco a Dios estar vivo
+Eres demasiado buena para ser verdad
+No puedo apartar mis ojos de ti
+Perdona la forma en que te miro
+No hay nada que se compare
+Tu imagen me deja débil
+Ya no tengo palabras
+Pero si sientes como yo siento
+Hazme saber que es real
+Eres demasiado buena para ser verdad
+No puedo apartar mis ojos de ti
+Te amo, cariño
+Y si está todo bien
+Te necesito, cariño
+Para calentar la noche solitaria
+Te amo, cariño
+Confía en mí cuando digo
+Oh, preciosa
+No me desanimes, te ruego
+Oh, preciosa
+Ahora que te encontré, quédate
+Y déjame amarte, cariño
+Déjame amarte
+Eres demasiado buena para ser verdad
+No puedo apartar mis ojos de ti
+Serías como el cielo al tocarte
+Quiero abrazarte tanto
+Por fin, el amor ha llegado
+Y le agradezco a Dios estar vivo
+Eres demasiado buena para ser verdad
+No puedo apartar mis ojos de ti
+Te amo, cariño
+Y si está todo bien
+Te necesito, cariño
+Para calentar la noche solitaria
+Te amo, cariño
+Confía en mí cuando digo
+Oh, preciosa
+No me desanimes, te ruego
+Oh, preciosa
+Ahora que te encontré, quédate
+Oh, preciosa
+Confía en mí cuando digo
+Oh, preciosa
+`.trim().split('\n');
+
 let index = 0;
 
-function showLyric() {
-  if (index >= lyrics.length) return;
-  const line = lyrics[index++];
-  const div = document.createElement('div');
-  div.className = 'lyric-line';
-  div.textContent = line;
+function showLyrics() {
+  if (index >= lyricsEn.length) return;
 
-  // Random position
-  div.style.top = `${Math.random() * 80 + 10}%`;
-  div.style.left = `${Math.random() * 80 + 10}%`;
+  const lineEn = lyricsEn[index];
+  const lineEs = lyricsEs[index] || '';
 
-  lyricsContainer.appendChild(div);
-  setTimeout(() => {
-    lyricsContainer.removeChild(div);
-  }, 8000);
+  const divEn = document.createElement('div');
+  const divEs = document.createElement('div');
 
-  setTimeout(showLyric, 3000); // ritmo de aparición
-}
+  divEn.className = 'lyric-line';
+  divEs.className = 'lyric-es-line';
 
-pauseBtn.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-    pauseBtn.textContent = '⏸';
-  } else {
-    audio.pause();
-    pauseBtn.textContent = '▶️';
-  }
-});
+  divEn.textContent = lineEn;
+  divEs.textContent = lineEs;
 
-// Sunflower bouncing
-let x = 100, y = 100, dx = 2, dy = 2;
+  // Ubicaciones aleatorias pero separadas
+  divEn.style.top = `${Math.random() * 70 + 5}%`;
+  divEn.style.left = `${Math.random() * 60 + 20}%`;
 
-function moveSunflower() {
-  const bounds = sunflower.getBoundingClientRect();
-  const w = window.innerWidth - bounds.width;
-  const h = window.innerHeight - bounds.height;
-
-  x += dx;
-  y += dy;
-
-  if (x <= 0 || x >= w) dx *= -1;
-  if (y <= 0 || y >= h) dy *= -1;
-
-  sunflower.style.left = `${x}px`;
-  sunflower.style.top = `${y}px`;
-
-  requestAnimationFrame(moveSunflower);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  showLyric();
-  moveSunflower();
-});
+  divEs.style.top = `${
