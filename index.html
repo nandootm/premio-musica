@@ -8,8 +8,9 @@
 </head>
 <body>
   <!-- Video de fondo -->
-  <video autoplay muted loop id="bg-video">
+  <video autoplay muted loop id="bg-video" playsinline>
     <source src="background.mp4" type="video/mp4" />
+    Tu navegador no soporta video.
   </video>
 
   <!-- Canvas para partículas -->
@@ -29,13 +30,13 @@
 
   <!-- Pantalla final oculta -->
   <div id="final-screen">
-    <div id="final-message">Gracias por quedarte hasta el final, Kei 💛</div>
+    <div id="final-message">Kei Kei, aquí está tu premio 💛</div>
     <div id="giant-sunflower"></div>
     <canvas id="final-stars"></canvas>
   </div>
 
   <!-- Audio invisible -->
-  <audio id="audio" src="song.mp3" autoplay></audio>
+  <audio id="audio" src="song.mp3"></audio>
 
   <script src="script.js"></script>
 </body>
