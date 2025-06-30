@@ -7,11 +7,25 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Canvas de fondo psicodélico -->
+  <!-- Video de fondo -->
+  <video autoplay muted loop id="bg-video">
+    <source src="background.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Canvas con efecto de estrellas -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Girasol giratorio -->
+  <!-- Girasol giratorio reducido -->
   <div id="sunflower"></div>
+
+  <!-- Letras grandes en inglés -->
+  <div id="background-lyrics"></div>
+
+  <!-- Texto poético -->
+  <div id="poetic">Tal vez algún día te dedique esta canción...</div>
+
+  <!-- Lente luminosa -->
+  <div id="lens"></div>
 
   <!-- Contenido principal -->
   <div class="container">
