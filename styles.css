@@ -7,130 +7,149 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: black;
-  cursor: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
 }
 
 #bg-video {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  z-index: 0;
-  opacity: 0.2;
+  z-index: -2;
+  opacity: 1;
 }
 
 #bg-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-}
-
-#sunflower {
-  position: fixed;
-  bottom: -10%;
-  right: -10%;
   width: 100%;
   height: 100%;
-  background: url('sunflower.png') no-repeat center center;
-  background-size: contain;
-  opacity: 0.1;
-  animation: rotateSun 80s linear infinite;
-  pointer-events: none;
-  z-index: 2;
+  z-index: -1;
 }
 
-@keyframes rotateSun {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-#background-lyrics {
+#main-title {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5vw;
-  font-weight: bold;
-  color: rgba(255,255,255,0.05);
-  white-space: pre-line;
+  top: 1rem;
+  width: 100%;
   text-align: center;
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.15);
+  font-weight: bold;
   z-index: 3;
   pointer-events: none;
-  text-transform: uppercase;
 }
 
 #poetic {
   position: fixed;
-  bottom: 2rem;
-  left: 2rem;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 1.4rem;
+  color: pink;
   font-family: 'Brush Script MT', cursive;
-  font-size: 1.8rem;
-  color: #ffcccc;
-  text-shadow: 0 0 5px #000;
-  z-index: 4;
+  z-index: 3;
   pointer-events: none;
 }
 
-#lens {
+#sunflower-button {
   position: fixed;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
-  pointer-events: none;
-  mix-blend-mode: lighten;
-  z-index: 6;
+  width: 80px;
+  height: 80px;
+  bottom: 1rem;
+  right: 1rem;
+  background: url('sunflower.png') no-repeat center center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  animation: spin 10s linear infinite;
+  z-index: 4;
 }
 
-.container {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#floating-lyrics {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  padding: 2rem;
-  text-align: center;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.arcade-title {
-  font-size: 3.5rem;
-  color: #00ffe7;
-  font-family: 'Press Start 2P', cursive, monospace;
-  text-shadow: 0 0 8px #0ff, 0 0 12px #0ff, 0 0 16px #0ff;
-  margin-bottom: 1rem;
+.lyric {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.07);
+  font-size: 3vw;
+  font-weight: bold;
+  animation: floatText 10s linear forwards;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-audio {
-  width: 80%;
-  max-width: 500px;
-  outline: none;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
+@keyframes floatText {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10vh) scale(1);
+  }
 }
 
-.lyrics {
-  position: relative;
-  width: 90%;
-  max-width: 800px;
-  height: 200px;
-  overflow-y: auto;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 1rem;
-  border-radius: 8px;
-  backdrop-filter: blur(6px);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #fff;
-  text-shadow: 0 0 4px rgba(0,0,0,0.7);
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
-  white-space: pre-line;
+/* Pantalla final */
+#final-screen {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(90deg, black, white, black);
+  z-index: 999;
+  animation: flash 1s infinite alternate;
+}
+
+#final-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: gold;
+  font-size: 2.5rem;
+  font-weight: bold;
+  z-index: 1001;
+  text-shadow: 0 0 8px black;
+}
+
+#giant-sunflower {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: url('sunflower.png') no-repeat center center;
+  background-size: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 8s linear infinite;
+  z-index: 1000;
+  opacity: 0.3;
+}
+
+#final-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  pointer-events: none;
 }
