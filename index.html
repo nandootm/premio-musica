@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Felicidades Kei</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premio Virtual</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Video de fondo -->
- <video id="bg-video" autoplay muted loop playsinline>
-    <source src="background.mp4" type="video/mp4" />
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
   </video>
 
-  <!-- Canvas para partículas -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- Lienzo para partículas -->
+  <canvas id="particles"></canvas>
 
-  <!-- Letras sincronizadas por toda la pantalla -->
-  <div id="floating-lyrics"></div>
+  <!-- Letras flotantes por toda la pantalla -->
+  <div id="lyrics-container"></div>
 
-  <!-- Título superior -->
-  <h1 id="main-title">Felicidades Kei</h1>
+  <!-- Frase romántica en esquina inferior -->
+  <div id="footer-message">Tal vez algún día podría dedicarte esta canción... quién sabe...</div>
 
-  <!-- Frase romántica -->
-  <div id="poetic">Tal vez algún día podría llegar a dedicártela</div>
+  <!-- Botón secreto girasol -->
+  <button id="secret-button">
+    <img src="sunflower.png" id="sunflower-img" alt="Sunflower">
+  </button>
 
-  <!-- Girasol como botón secreto -->
-  <button id="sunflower-button"></button>
-
-  <!-- Pantalla final oculta -->
-  <div id="final-screen">
-    <div id="final-message">Kei Kei, aquí está tu premio 💛</div>
-    <div id="giant-sunflower"></div>
-    <canvas id="final-stars"></canvas>
+  <!-- Pantalla de premio -->
+  <div id="reward-screen">
+    <h2>Aquí está tu premio</h2>
+    <img src="sunflower.png" class="sunflower-full" alt="Girasol">
   </div>
 
-  <!-- Audio invisible -->
-  <audio id="audio" src="song.mp3"></audio>
+  <!-- Audio oculto -->
+  <audio id="bg-audio" src="song.mp3" autoplay preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
