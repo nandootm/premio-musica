@@ -4,8 +4,7 @@ const pauseBtn = document.getElementById('pauseBtn');
 const lyricsContainer = document.getElementById('lyrics-container');
 const lyricsEsContainer = document.getElementById('lyrics-es-container');
 
-const lyricsEn = `
-You're just too good to be true
+const lyricsEn = `You're just too good to be true
 Can't take my eyes off of you
 You'd be like Heaven to touch
 I wanna hold you so much
@@ -53,11 +52,9 @@ Oh, pretty baby
 Now that I've found you, stay
 Oh, pretty baby
 Trust in me when I say
-Oh, pretty baby
-`.trim().split('\n');
+Oh, pretty baby`.trim().split('\n');
 
-const lyricsEs = `
-Eres demasiado buena para ser verdad
+const lyricsEs = `Eres demasiado buena para ser verdad
 No puedo apartar mis ojos de ti
 Serías como el cielo al tocarte
 Quiero abrazarte tanto
@@ -105,8 +102,7 @@ Oh, preciosa
 Ahora que te encontré, quédate
 Oh, preciosa
 Confía en mí cuando digo
-Oh, preciosa
-`.trim().split('\n');
+Oh, preciosa`.trim().split('\n');
 
 let index = 0;
 
@@ -117,16 +113,45 @@ function showLyrics() {
   const lineEs = lyricsEs[index] || '';
 
   const divEn = document.createElement('div');
-  const divEs = document.createElement('div');
-
   divEn.className = 'lyric-line';
-  divEs.className = 'lyric-es-line';
-
   divEn.textContent = lineEn;
+
+  const divEs = document.createElement('div');
+  divEs.className = 'lyric-es-line';
   divEs.textContent = lineEs;
 
-  // Ubicaciones aleatorias pero separadas
-  divEn.style.top = `${Math.random() * 70 + 5}%`;
-  divEn.style.left = `${Math.random() * 60 + 20}%`;
+  const topPos = Math.random() * 60 + 10;
+  const leftPosEn = Math.random() * 50 + 10;
+  const leftPosEs = Math.random() * 50 + 30;
 
-  divEs.style.top = `${
+  divEn.style.top = `${topPos}%`;
+  divEn.style.left = `${leftPosEn}%`;
+
+  divEs.style.top = `${topPos + 5}%`;
+  divEs.style.left = `${leftPosEs}%`;
+
+  lyricsContainer.appendChild(divEn);
+  lyricsEsContainer.appendChild(divEs);
+
+  setTimeout(() => {
+    lyricsContainer.removeChild(divEn);
+    lyricsEsContainer.removeChild(divEs);
+  }, 6000);
+
+  index++;
+  setTimeout(showLyrics, 4000);
+}
+
+pauseBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    pauseBtn.textContent = '⏸';
+  } else {
+    audio.pause();
+    pauseBtn.textContent = '▶️';
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  showLyrics();
+});
