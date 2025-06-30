@@ -1,17 +1,18 @@
 const audio = document.getElementById('audio');
 const lyricsContainer = document.getElementById('floating-lyrics');
-const sunflowerButton = document.getElementById('sunflower-button');
-const finalScreen = document.getElementById('final-screen');
-const finalStarsCanvas = document.getElementById('final-stars');
-const ctx = finalStarsCanvas.getContext('2d');
 
-// Autoplay
+// Autoplay with user interaction fallback
 window.addEventListener('load', () => {
   const playAudio = () => {
     audio.play().catch(() => {
-      document.body.addEventListener('click', () => {
+      // If autoplay fails, wait for user interaction to play
+      const playOnInteraction = () => {
         audio.play();
-      }, { once: true });
+        document.body.removeEventListener('click', playOnInteraction);
+        document.body.removeEventListener('keydown', playOnInteraction);
+      };
+      document.body.addEventListener('click', playOnInteraction);
+      document.body.addEventListener('keydown', playOnInteraction);
     });
   };
   setTimeout(playAudio, 10);
@@ -47,7 +48,7 @@ function showFloatingLyric(text) {
   const el = document.createElement('div');
   el.className = 'lyric';
   el.style.top = `${Math.random() * 90}%`;
-  el.style.left = `${Math.random() * 90}%`;
+  el.style.left = `${Math.random() * 90}%`; // Balanced random position across width
   el.textContent = text;
   lyricsContainer.appendChild(el);
   setTimeout(() => el.remove(), 10000);
@@ -60,37 +61,3 @@ setInterval(() => {
     i++;
   }
 }, 4000);
-
-// Botón de girasol activa escena final
-sunflowerButton.addEventListener('click', () => {
-  finalScreen.style.display = 'block';
-  startFinalStars();
-});
-
-function startFinalStars() {
-  finalStarsCanvas.width = window.innerWidth;
-  finalStarsCanvas.height = window.innerHeight;
-  const stars = Array.from({ length: 300 }, () => ({
-    x: Math.random() * finalStarsCanvas.width,
-    y: Math.random() * finalStarsCanvas.height,
-    r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 2,
-    dy: (Math.random() - 0.5) * 2,
-  }));
-
-  function animate() {
-    ctx.clearRect(0, 0, finalStarsCanvas.width, finalStarsCanvas.height);
-    stars.forEach(star => {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-      ctx.fillStyle = 'white';
-      ctx.fill();
-      star.x += star.dx;
-      star.y += star.dy;
-      if (star.x < 0 || star.x > finalStarsCanvas.width) star.dx *= -1;
-      if (star.y < 0 || star.y > finalStarsCanvas.height) star.dy *= -1;
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
