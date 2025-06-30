@@ -8,40 +8,75 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Great Vibes', cursive;
-  background-color: black;
+  font-family: 'Playfair Display', serif;
+  color: white;
   position: relative;
+  background-color: black;
 }
 
 #background-video {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  z-index: -1;
+  z-index: -999;
+  filter: brightness(0.7);
 }
 
+/* Título central */
 .title {
   position: absolute;
-  top: 2%;
+  top: 3%;
   width: 100%;
   text-align: center;
-  font-size: 2.5em;
+  font-size: 3.2em;
   font-weight: bold;
-  text-shadow: 3px 3px 8px black;
+  color: #fff;
+  text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
+  animation: fadeOutTitle 10s ease forwards;
 }
 
+/* Pequeño texto abajo a la izquierda */
 .poema {
   position: absolute;
   bottom: 2%;
   left: 2%;
-  font-size: 0.9em;
-  color: #eee;
+  font-size: 1em;
   font-style: italic;
+  color: #ddd;
   opacity: 0.7;
 }
+
+/* Letras en inglés */
+.lyric-line {
+  position: absolute;
+  font-size: 2.5em;
+  white-space: nowrap;
+  opacity: 0;
+  color: #ffffff;
+  text-shadow: 2px 2px 5px black;
+  animation: fadeInOut 8s ease-in-out forwards;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+/* Letras en español con giro */
+.lyric-es {
+  position: absolute;
+  font-size: 2.5em;
+  color: #ffee99;
+  font-weight: bold;
+  white-space: nowrap;
+  opacity: 0;
+  transform: rotate(0deg);
+  text-shadow: 2px 2px 8px black;
+  animation: spinInOut 8s ease-in-out forwards;
+  pointer-events: none;
+}
+
+/* Botón de pausa */
 #pauseBtn {
   position: absolute;
   top: 10px;
@@ -49,51 +84,41 @@ body, html {
   background-color: rgba(0,0,0,0.4);
   color: white;
   border: none;
-  padding: 5px;
   font-size: 14px;
-  border-radius: 50%;
+  padding: 5px 8px;
+  border-radius: 5px;
   cursor: pointer;
-  z-index: 5;
+  z-index: 10;
 }
 
-.lyric-line {
-  position: absolute;
-  font-size: 3em;
-  color: white;
-  text-shadow: 2px 2px 10px #000;
-  opacity: 0;
-  animation: fadeInOut 8s ease-in-out forwards;
-  font-family: 'Great Vibes', cursive;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(50px); }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-50px); }
-}
-
-.lyric-es {
-  position: absolute;
-  font-size: 2.5em;
-  font-family: 'Sacramento', cursive;
-  color: #ffccff;
-  animation: spinFade 8s linear forwards;
-  opacity: 0;
-}
-
-@keyframes spinFade {
-  0% { transform: rotate(0deg) scale(0); opacity: 0; }
-  10% { opacity: 1; }
-  50% { transform: rotate(180deg) scale(1); }
-  100% { transform: rotate(360deg) scale(0); opacity: 0; }
-}
-
+/* Girasoles */
 .sunflower {
   position: absolute;
   width: 70px;
-  height: auto;
-  opacity: 0.6;
+  height: 70px;
+  opacity: 0.8;
   pointer-events: none;
+  z-index: 2;
+}
+
+/* Animaciones */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes spinInOut {
+  0% { opacity: 0; transform: rotate(0deg) scale(0.9); }
+  10% { opacity: 1; transform: rotate(180deg) scale(1); }
+  90% { opacity: 1; transform: rotate(360deg) scale(1); }
+  100% { opacity: 0; transform: rotate(540deg) scale(0.9); }
+}
+
+@keyframes fadeOutTitle {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
