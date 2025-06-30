@@ -1,112 +1,67 @@
-const sunflower = document.getElementById('sunflower');
 const audio = document.getElementById('music');
-const pauseBtn = document.getElementById('pauseBtn');
+const playBtn = document.getElementById('playBtn');
 const lyricsContainer = document.getElementById('lyrics-container');
+const sunflower = document.getElementById('sunflower');
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
 
-const lyrics = `
-You're just too good to be true
-Can't take my eyes off of you
-You'd be like Heaven to touch
-I wanna hold you so much
-At long last, love has arrived
-And I thank God I'm alive
-You're just too good to be true
-Can't take my eyes off of you
-Pardon the way that I stare
-There's nothin' else to compare
-The sight of you leaves me weak
-There are no words left to speak
-But if you feel like I feel
-Please let me know that it's real
-You're just too good to be true
-Can't take my eyes off of you
-I love you, baby
-And if it's quite alright
-I need you, baby
-To warm the lonely night
-I love you, baby
-Trust in me when I say
-Oh, pretty baby
-Don't bring me down, I pray
-Oh, pretty baby
-Now that I've found you, stay
-And let me love you, baby
-Let me love you
-You're just too good to be true
-Can't take my eyes off of you
-You'd be like Heaven to touch
-I wanna hold you so much
-At long last, love has arrived
-And I thank God I'm alive
-You're just too good to be true
-Can't take my eyes off you
-I love you, baby
-And if it's quite alright
-I need you, baby
-To warm the lonely night
-I love you, baby
-Trust in me when I say
-Oh, pretty baby
-Don't bring me down, I pray
-Oh, pretty baby
-Now that I've found you, stay
-Oh, pretty baby
-Trust in me when I say
-Oh, pretty baby
-`.trim().split('\n');
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-let index = 0;
+// Partículas
+const particles = [];
+for (let i = 0; i < 100; i++) {
+  particles.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*2+1,
+    dx: (Math.random()-0.5)*1,
+    dy: (Math.random()-0.5)*1
+  });
+}
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x += p.dx; p.y += p.dy;
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    ctx.fillStyle = 'rgba(0,255,255,0.7)';
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+    ctx.fill();
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
 
-function showLyric() {
-  if (index >= lyrics.length) return;
-  const line = lyrics[index++];
+// Letras en inglés y español
+const lyrics = [
+  {time:0, en:"You're just too good to be true", es:"Eres demasiado buena para ser real"},
+  {time:5, en:"Can't take my eyes off of you", es:"No puedo quitarte los ojos de encima"},
+  // ... continúa con los tiempos sincronizados ...
+];
+let idx = 0;
+
+function showLyric(line){
   const div = document.createElement('div');
   div.className = 'lyric-line';
-  div.textContent = line;
-
-  // Random position
-  div.style.top = `${Math.random() * 80 + 10}%`;
-  div.style.left = `${Math.random() * 80 + 10}%`;
-
+  div.innerHTML = `${line.en}<br><i>${line.es}</i>`;
+  div.style.top = `${10 + Math.random()*80}%`;
+  div.style.left = `${10 + Math.random()*80}%`;
   lyricsContainer.appendChild(div);
-  setTimeout(() => {
-    lyricsContainer.removeChild(div);
-  }, 8000);
-
-  setTimeout(showLyric, 3000); // ritmo de aparición
+  div.animate([{opacity:0},{opacity:1},{opacity:1},{opacity:0}], 
+    {duration:8000, easing:'ease-out'});
+  setTimeout(()=>lyricsContainer.removeChild(div),8000);
 }
 
-pauseBtn.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-    pauseBtn.textContent = '⏸';
-  } else {
-    audio.pause();
-    pauseBtn.textContent = '▶️';
-  }
-});
-
-// Sunflower bouncing
-let x = 100, y = 100, dx = 2, dy = 2;
-
-function moveSunflower() {
-  const bounds = sunflower.getBoundingClientRect();
-  const w = window.innerWidth - bounds.width;
-  const h = window.innerHeight - bounds.height;
-
-  x += dx;
-  y += dy;
-
-  if (x <= 0 || x >= w) dx *= -1;
-  if (y <= 0 || y >= h) dy *= -1;
-
-  sunflower.style.left = `${x}px`;
-  sunflower.style.top = `${y}px`;
-
-  requestAnimationFrame(moveSunflower);
+function startLyrics(){
+  audio.play();
+  playBtn.style.display = 'none';
+  lyrics.forEach(line=>{
+    setTimeout(()=>showLyric(line), line.time * 1000);
+  });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  showLyric();
-  moveSunflower();
-});
+playBtn.addEventListener('click', startLyrics);
+
+// Girar girasol — ya con CSS
+
