@@ -8,16 +8,20 @@ html, body {
   height: 100%;
   overflow: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  animation: fadeBG 20s ease-in-out infinite;
+  background: black;
+  cursor: none;
 }
 
-@keyframes fadeBG {
-  0% { background-color: #fff; }
-  50% { background-color: #000; }
-  100% { background-color: #fff; }
+#bg-video {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.2;
 }
 
-/* Canvas */
 #bg-canvas {
   position: fixed;
   top: 0;
@@ -25,18 +29,18 @@ html, body {
   width: 100vw;
   height: 100vh;
   z-index: 1;
+  pointer-events: none;
 }
 
-/* Girasol */
 #sunflower {
   position: fixed;
-  bottom: -20%;
-  right: -20%;
-  width: 200%;
-  height: 200%;
+  bottom: -10%;
+  right: -10%;
+  width: 100%;
+  height: 100%;
   background: url('sunflower.png') no-repeat center center;
   background-size: contain;
-  opacity: 0.15;
+  opacity: 0.1;
   animation: rotateSun 80s linear infinite;
   pointer-events: none;
   z-index: 2;
@@ -47,10 +51,46 @@ html, body {
   to { transform: rotate(360deg); }
 }
 
-/* Contenido central */
+#background-lyrics {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5vw;
+  font-weight: bold;
+  color: rgba(255,255,255,0.04);
+  white-space: pre-line;
+  text-align: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+#poetic {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 1.8rem;
+  color: #ffcccc;
+  text-shadow: 0 0 5px #000;
+  z-index: 4;
+  pointer-events: none;
+}
+
+#lens {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+  pointer-events: none;
+  mix-blend-mode: lighten;
+  z-index: 6;
+}
+
 .container {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,12 +115,11 @@ audio {
   filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
 }
 
-/* Letra de la canción */
 .lyrics {
   position: relative;
   width: 90%;
   max-width: 800px;
-  height: 150px;
+  height: 180px;
   overflow-y: auto;
   background: rgba(0, 0, 0, 0.4);
   padding: 1rem;
@@ -90,4 +129,5 @@ audio {
   line-height: 1.5;
   color: #fff;
   text-shadow: 0 0 4px rgba(0,0,0,0.7);
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
