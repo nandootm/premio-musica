@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <video autoplay muted loop id="bg-video">
-        <source src="background.mp4" type="video/mp4">
-    </video>
-
+    <div id="bg-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="background.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div id="overlay"></div>
+    
     <div id="content">
         <h1>Gracias por esperar Keikei</h1>
         <div id="lyrics-container"></div>
         
-        <!-- 7 girasoles -->
-        <div class="sunflower-container"></div>
+        <div id="sunflowers-container"></div>
         
         <button id="audio-control">⏸</button>
         
